@@ -74,6 +74,6 @@ The implementation of LRU Cache relies on the <a href="https://github.com/hashic
 
 
 ## Omitted Requirements
-- Ideally would like to have more test coverage. 
-- Redis instance could be configured as a pool and supports concurrency 
+- Ideally would like to have more test coverage
+- Redis instance could be configured as a pool and supports concurrency
 - Could have implemented the LRU algorithm from scratch but opted for more efficiency here :) 
