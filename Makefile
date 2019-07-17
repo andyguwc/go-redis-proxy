@@ -1,13 +1,13 @@
 build: ## Build the container
-	docker-compose build
+	docker-compose -f docker-compose.yml build
 
 run: ## Run container
-	docker-compose up -d
+	make build 
+	docker-compose -f docker-compose.yml up -d
 
 stop: ## Stopcontainer
 	docker-compose down -v
 
 test: ## testing
-	docker-compose up -d
-	go test -v ./...
-	docker-compose down
+	docker-compose -f docker-compose.test.yml up --build --abort-on-container-exit
+	docker-compose -f docker-compose.test.yml down	
