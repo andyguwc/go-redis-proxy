@@ -1,0 +1,40 @@
+version: '3'
+
+
+volumes:
+  redis_data:
+
+services: 
+    proxy:
+        build: 
+          context: .
+          dockerfile: Dockerfile
+        command:
+          sh -c "dep ensure &&
+                  go build && 
+                  ./go-redis-cache "
+        links:
+            - redis:redis
+        depends_on:
+            - redis
+        volumes:
+            - .:/go/src/github.com/andyguwc/go-redis-cache
+        environment:
+          - PORT=8080
+          - REDIS_ADDR=redis:6379
+          - CAPACITY=100
+          - GLOBAL_EXPIRY=500
+        ports:
+            - "8080:8080" 
+        container_name: proxy-cont
+    redis:
+        image: redis:alpine
+        volumes:
+           - redis_data:/data
+        expose:
+          - 6379
+        ports:
+          - '6379:6379'
+        container_name: redis-cont
+    
+       
